@@ -24,7 +24,7 @@ end
 
 function lowres.endDraw()
     love.graphics.setCanvas()
-    love.graphics.draw(_canvas, 0, 0, 0, scale, scale)
+    love.graphics.draw(_canvas, 0, 0, 0, _scale, _scale)
 end
 
 return lowres
