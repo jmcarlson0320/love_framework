@@ -6,6 +6,7 @@ local assets = require("assets")
 function love.load()
     lowres.init(128, 128, 5)
     assets.load()
+    love.graphics.setFont(assets.lowresFont)
     scene.switch(gameScene)
 end
 
