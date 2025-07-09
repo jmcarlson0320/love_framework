@@ -16,6 +16,7 @@ end
 
 function love.draw()
     lowres.beginDraw()
+    love.graphics.draw(assets.sprites,0,0)
     scene.draw()
     lowres.endDraw()
 end

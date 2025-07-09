@@ -1,7 +1,4 @@
-local Object = {
-    x = 0,
-    y = 0,
-}
+local Object = {}
 
 function Object:new(o)
     o = o or {}
