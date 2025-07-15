@@ -13,6 +13,7 @@ function lowres.init(virtWidth, virtHeight, scale)
         fullscreen = false,
         centered = true,
     })
+
     _canvas = love.graphics.newCanvas(virtWidth, virtHeight)
     _scale = scale
 end
