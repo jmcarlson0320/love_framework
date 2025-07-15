@@ -31,7 +31,8 @@ end
     Scope: Member Function
     Description: Draws a sprite with a given index at pixel coordinates x and y.
     Parameters:
-        id (number) - The index of the sprite to draw. Sprites are indexed left-to-right and top-to-bottom, with 1 being the top-left sprite in the sprite sheet.
+        id (number) - The index of the sprite to draw. Sprites are indexed left-to-right and top-to-bottom, with 1 being
+                      the top-left sprite in the sprite sheet.
         x (number) - The target x coordinate in pixels.
         y (number) - The target y coordinate in pixels.
     Returns:
