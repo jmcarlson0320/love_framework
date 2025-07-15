@@ -6,13 +6,15 @@ local _scale = 0
 function lowres.init(virtWidth, virtHeight, scale)
     local screenWidth = virtWidth * scale
     local screenHeight = virtHeight * scale
+    local windowSettings = {
+        fullscreen = false,
+        centered = true,
+    }
+
+    love.window.setMode(screenWidth, screenHeight, windowSettings)
 
     love.graphics.setDefaultFilter("nearest", "nearest")
     love.graphics.setLineStyle("rough")
-    love.window.setMode(screenWidth, screenHeight, {
-        fullscreen = false,
-        centered = true,
-    })
 
     _canvas = love.graphics.newCanvas(virtWidth, virtHeight)
     _scale = scale

@@ -2,14 +2,16 @@ local lowres = require("lowres")
 local scene = require("scenes.scene")
 local gameScene = require("scenes.gameScene")
 local assets = require("assets")
+local assetData = require("assets.manifest")
 local spriteSheet = require("spriteSheet")
 
 function love.load()
     lowres.init(128, 128, 5)
-    assets.load()
-    love.graphics.setFont(assets.lowresFont)
 
-    sprites = spriteSheet.new(assets.sprites, 16)
+    assets.load(assetData)
+    love.graphics.setFont(assets["lowresFont"])
+    sprites = spriteSheet.new(assets["mySprites"], 16)
+
     scene.switch(gameScene)
 
     sprId = 1
