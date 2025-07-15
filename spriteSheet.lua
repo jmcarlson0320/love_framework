@@ -12,17 +12,12 @@ local SpriteSheet = {}
 ]]
 local function generate_quads(image, size)
     local wPix, hPix = image:getDimensions()
-    print("w: " .. wPix .. " h: " .. hPix)
-
     local numRows = math.floor(hPix / size)
     local numCols = math.floor(wPix / size)
-    print("r: " .. numRows .. " c: " .. numCols)
 
     local quads = {}
     for row = 0, numRows do
         for col = 0, numCols do
-            print("r: " .. row .. " c: " .. col)
-            print("pixX: " .. col * size .. " pixY: " .. row * size)
             local quad = love.graphics.newQuad(col * size, row * size, size, size, image)
             table.insert(quads, quad)
         end
