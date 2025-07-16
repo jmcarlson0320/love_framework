@@ -1,5 +1,7 @@
 local assets = {}
 
+local registry = {}
+
 --[[
     Function: fontLoader
     Scope: Private Helper Function
@@ -48,8 +50,12 @@ local assetLoaders = {
 function assets.load(manifest)
     for i, entry in ipairs(manifest) do
         local loadFunction = assetLoaders[entry.type]
-        assets[entry.name] = loadFunction(entry)
+        registry[entry.name] = loadFunction(entry)
     end
+end
+
+function assets.get(assetName)
+    return registry[assetName]
 end
 
 return assets

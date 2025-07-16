@@ -1,5 +1,7 @@
 local SpriteSheet = {}
 
+local assets = require("assets")
+
 --[[
     Function: generate_quads
     Scope: Private Helper Function
@@ -14,6 +16,8 @@ local function generate_quads(image, size)
     local wPix, hPix = image:getDimensions()
     local numRows = math.floor(hPix / size)
     local numCols = math.floor(wPix / size)
+    print("generating quads")
+    print("numRows: " .. numRows .. " numCols: " .. numCols)
 
     local quads = {}
     for row = 0, numRows do
@@ -44,12 +48,37 @@ local function draw(self, id, x, y)
         return
     end
 
-    if id < 1 or #self.quads < id then
-        print("invalid id")
+    if not self.spriteInfo then
+        print("spriteInfo array is nil")
         return
     end
 
-    love.graphics.draw(self.image, self.quads[id], x, y)
+    if id < 1 or #self.spriteInfo.sprites < id then
+        --print("invalid id: " .. id)
+        return
+    end
+
+    print("begin draw id: " .. id)
+    local sprite = self.spriteInfo.sprites[id]
+    for row = sprite.y, sprite.y + sprite.h - 1 do
+        for col = sprite.x, sprite.x + sprite.w - 1 do
+            print("row: " .. row .. " col: " .. col)
+            local index = row * self.spriteInfo.gridWidth + col + 1
+            print("index: " .. index)
+
+            love.graphics.draw(self.image, self.quads[index], x, y)
+        end
+    end
+end
+
+local function find(self, name)
+    for i, v in ipairs(self.spriteInfo.sprites) do
+        if v.name == name then
+            return i
+        end
+    end
+
+    return -1
 end
 
 --[[
@@ -62,14 +91,16 @@ end
     Returns:
         spriteSheet (table) - A new instance of SpriteSheet
 ]]
-function SpriteSheet.new(spriteImage, spriteSize)
+function SpriteSheet.new(spriteImage, spriteInfo)
     local self = {}
 
-    self.image = spriteImage
-    self.spriteSize = spriteSize
+    self.image = assets.get(spriteInfo.imageName)
+    self.spriteSize = spriteInfo.gridSize
     self.quads = generate_quads(self.image, self.spriteSize)
+    self.spriteInfo = spriteInfo
 
     self.draw = draw
+    self.find = find
 
     return self
 end

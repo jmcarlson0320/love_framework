@@ -1,14 +1,15 @@
 local Player = require("objects.player")
+local Sprite = require("sprite")
+local assets = require("assets")
+local spriteSheet = require("spriteSheet")
+local spriteInfo = require("spriteInfo")
 
 local scene = {}
 local objects = {}
 
 function scene.load()
     objects = {
-        Player:new({
-            x = 100,
-            y = 100,
-        })
+        Player.new(x, y),
     }
 end
 
