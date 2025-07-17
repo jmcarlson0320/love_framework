@@ -1,7 +1,5 @@
 local SpriteSheet = {}
 
-local assets = require("assets")
-
 --[[
     Function: generate_quads
     Scope: Private Helper Function
@@ -12,19 +10,13 @@ local assets = require("assets")
     Returns:
         quads (table) - The list of love2d Quads
 ]]
-local function generate_quads(image, size)
-    local wPix, hPix = image:getDimensions()
-    local numRows = math.floor(hPix / size)
-    local numCols = math.floor(wPix / size)
-    print("generating quads")
-    print("numRows: " .. numRows .. " numCols: " .. numCols)
-
+local function generate_quads(image, spriteInfo)
+    local size = spriteInfo.gridSize
     local quads = {}
-    for row = 0, numRows do
-        for col = 0, numCols do
-            local quad = love.graphics.newQuad(col * size, row * size, size, size, image)
-            table.insert(quads, quad)
-        end
+
+    for i, sprite in ipairs(spriteInfo.sprites) do
+        local quad = love.graphics.newQuad(sprite.x * size, sprite.y * size, size, size, image)
+        quads[sprite.name] = quad
     end
 
     return quads
@@ -42,43 +34,17 @@ end
     Returns:
         N/A
 ]]
-local function draw(self, id, x, y)
+local function draw(self, name, x, y)
     if not self.quads then 
         print("quads array is nil")
         return
     end
 
-    if not self.spriteInfo then
-        print("spriteInfo array is nil")
-        return
+    local quad = self.quads[name]
+
+    if quad then
+        love.graphics.draw(self.image, quad, x, y)
     end
-
-    if id < 1 or #self.spriteInfo.sprites < id then
-        --print("invalid id: " .. id)
-        return
-    end
-
-    print("begin draw id: " .. id)
-    local sprite = self.spriteInfo.sprites[id]
-    for row = sprite.y, sprite.y + sprite.h - 1 do
-        for col = sprite.x, sprite.x + sprite.w - 1 do
-            print("row: " .. row .. " col: " .. col)
-            local index = row * self.spriteInfo.gridWidth + col + 1
-            print("index: " .. index)
-
-            love.graphics.draw(self.image, self.quads[index], x, y)
-        end
-    end
-end
-
-local function find(self, name)
-    for i, v in ipairs(self.spriteInfo.sprites) do
-        if v.name == name then
-            return i
-        end
-    end
-
-    return -1
 end
 
 --[[
@@ -91,16 +57,14 @@ end
     Returns:
         spriteSheet (table) - A new instance of SpriteSheet
 ]]
-function SpriteSheet.new(spriteImage, spriteInfo)
+function SpriteSheet.new(image, spriteInfo)
     local self = {}
 
-    self.image = assets.get(spriteInfo.imageName)
-    self.spriteSize = spriteInfo.gridSize
-    self.quads = generate_quads(self.image, self.spriteSize)
+    self.image = image
     self.spriteInfo = spriteInfo
+    self.quads = generate_quads(self.image, self.spriteInfo)
 
     self.draw = draw
-    self.find = find
 
     return self
 end

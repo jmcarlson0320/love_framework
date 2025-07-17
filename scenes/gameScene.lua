@@ -1,8 +1,4 @@
 local Player = require("objects.player")
-local Sprite = require("sprite")
-local assets = require("assets")
-local spriteSheet = require("spriteSheet")
-local spriteInfo = require("spriteInfo")
 
 local scene = {}
 local objects = {}

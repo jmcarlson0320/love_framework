@@ -1,5 +1,7 @@
 local assets = {}
 
+
+local manifest = require("assets.manifest")
 local registry = {}
 
 --[[
@@ -47,13 +49,22 @@ local assetLoaders = {
     Returns:
         N/A
 ]]
-function assets.load(manifest)
+function assets.load()
     for i, entry in ipairs(manifest) do
         local loadFunction = assetLoaders[entry.type]
         registry[entry.name] = loadFunction(entry)
     end
 end
 
+--[[
+    Function: assets.get
+    Scope: Public API Function
+    Description: Fetches an asset by name. The name must correspond to an asset from the manifest file.
+    Parameters:
+        name (string) - The name of the asset to fetch.
+    Returns:
+        asset (varies) - The asset to be fetched or nil if nothing was found.
+]]
 function assets.get(assetName)
     return registry[assetName]
 end

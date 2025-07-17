@@ -11,4 +11,10 @@ return {
         type = "image",
         filePath = "assets/sprites.png",
     },
+
+    {
+        name = "colored_balls",
+        type = "image",
+        filePath = "assets/colored_balls.png",
+    },
 }

@@ -9,7 +9,7 @@ local function update(self, dt)
 end
 
 local function draw(self)
-    self.sprite:draw(self.x, self.y)
+    mySpriteSheet:draw(self.sprite, self.x, self.y)
 end
 
 function Player.new(x, y)
@@ -20,7 +20,7 @@ function Player.new(x, y)
 
     -- TODO
     --local spriteSheet = assets.get(spriteSheetName)
-    self.sprite = Sprite.new(mySpriteSheet, spriteName)
+    self.sprite = mySpriteSheet.find(spriteName)
 
     self.update = update
     self.draw = draw

@@ -1,37 +1,23 @@
 local lowres = require("lowres")
 local assets = require("assets")
-local assetData = require("assets.manifest")
-local spriteSheet = require("spriteSheet")
-local spriteInfo = require("spriteInfo")
-local scene = require("scenes.scene")
-local gameScene = require("scenes.gameScene")
+local SpriteSheet = require("spriteSheet")
+local spriteInfo = require("assets.spriteInfo")
 
 function love.load()
-    sprId = 1
-
-    assets.load(assetData)
     lowres.init(128, 128, 5)
 
+    assets.load()
     love.graphics.setFont(assets.get("lowresFont"))
-    mySpriteSheet = spriteSheet.new(assets.get("mySprites"), spriteInfo)
 
-    scene.switch(gameScene)
+    ball_image = assets.get("colored_balls")
+    ball_sprites = SpriteSheet.new(ball_image, spriteInfo)
 end
 
 function love.update(dt)
-    scene.update(dt)
 end
 
 function love.draw()
     lowres.beginDraw()
-
-    scene.draw()
-
+    ball_sprites:draw("orange", 0, 0)
     lowres.endDraw()
-end
-
-function love.keypressed(key, scancode, isrepeat)
-    if key == "space" then
-        sprId = sprId + 1
-    end
 end
