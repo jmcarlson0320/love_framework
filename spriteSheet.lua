@@ -1,14 +1,14 @@
 local SpriteSheet = {}
 
-local function generate_quads(image, size)
+local function generate_quads(image, spriteWidth, spriteHeight)
     local imgX, imgY = image:getDimensions()
-    local gridW = math.floor(imgX / size) - 1
-    local gridH = math.floor(imgY / size) - 1
+    local gridW = math.floor(imgX / spriteWidth) - 1
+    local gridH = math.floor(imgY / spriteHeight) - 1
 
     local quads = {}
     for gridY = 0, gridH do
         for gridX = 0, gridW do
-            local quad = love.graphics.newQuad(gridX * size, gridY * size, size, size, image)
+            local quad = love.graphics.newQuad(gridX * spriteWidth, gridY * spriteHeight, spriteWidth, spriteHeight, image)
             table.insert(quads, quad)
         end
     end
@@ -33,11 +33,11 @@ local function draw(self, id, x, y)
     end
 end
 
-function SpriteSheet.new(image, size)
+function SpriteSheet.new(image, spriteWidth, spriteHeight)
     local self = {}
 
     self.image = image
-    self.quads = generate_quads(self.image, size)
+    self.quads = generate_quads(self.image, spriteWidth, spriteHeight)
 
     self.draw = draw
 

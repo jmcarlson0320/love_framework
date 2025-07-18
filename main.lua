@@ -11,7 +11,7 @@ function love.load()
 
     love.graphics.setFont(assets.get("lowresFont"))
 
-    myPlayer = Player.new(100, 100)
+    myPlayer = Player.new(56, 0)
 end
 
 function love.update(dt)

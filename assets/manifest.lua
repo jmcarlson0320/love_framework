@@ -17,4 +17,10 @@ return {
         type = "image",
         filePath = "assets/colored_balls.png",
     },
+
+    {
+        name = "dungeon_monsters",
+        type = "image",
+        filePath = "assets/Dungeon_Monsters1.png",
+    },
 }
