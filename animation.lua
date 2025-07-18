@@ -17,6 +17,11 @@ local function draw(self, x, y)
     self.spriteSheet:draw(id, x, y)
 end
 
+local function reset(self)
+    self.frameIndex = 1
+    self.timer = 0
+end
+
 function Animation.new(spriteSheet, frameList, fps)
     local self = {}
 
@@ -29,6 +34,7 @@ function Animation.new(spriteSheet, frameList, fps)
 
     self.update = update
     self.draw = draw
+    self.reset = reset
 
     return self
 end
